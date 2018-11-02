@@ -173,6 +173,16 @@ def convert_colorstring_for_vim(string):
 
     return result
 
+def get_vimwiki_config(buffer_number):
+    """ Returns the vimwiki config of the vimwiki that the file in this buffer belongs to. """
+    buf_path = vim.buffers[buffer_number].name
+    vw_config_list = vim.eval("g:vimwiki_list")
+    for config in vw_config_list:
+        vw_base_path = config.get('path') and os.path.expanduser(config.get('path'))
+        if vw_base_path and buf_path.startswith(vw_base_path):
+            return config
+    return {}
+
 def get_buffer_shortname():
     return vim.eval('expand("%")')
 

@@ -18,6 +18,7 @@ from taskwiki import util
 from taskwiki import viewport
 from taskwiki import decorators
 
+util.get_vimwiki_config(vim.current.buffer.number)
 
 cache = cache_module.CacheRegistry()
 cache.load_current()

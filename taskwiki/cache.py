@@ -105,8 +105,14 @@ class TaskCache(object):
 
     def __init__(self, buffer_number):
         # Determine defaults
-        default_rc = util.get_var('taskwiki_taskrc_location') or '~/.taskrc'
-        default_data = util.get_var('taskwiki_data_location') or None
+        vw_config = util.get_vimwiki_config(buffer_number)
+        default_rc = (util.get_var('taskwiki_taskrc_location') or
+                vw_config.get('taskwiki_taskrc_location', None) or
+                '~/.taskrc')
+        default_data = (util.get_var('taskwiki_data_location', None) or
+                vw_config.get('taskwiki_data_location') or
+                None)
+        print default_data
         extra_warrior_defs = util.get_var('taskwiki_extra_warriors', {})
         markup_syntax = util.get_var('taskwiki_markup_syntax') or 'default'
 
